@@ -48,15 +48,17 @@ class SnakeGame:
 			elif self.direction == Direction.E:
 				new_head = (head[0], head[1] + 1)
 
-			last = self.snake.pop()
+			tail = self.snake.pop()
+			self.finish_update(new_head, tail)
 
+	def finish_update(self, new_head, tail):
 			if new_head in self.snake or new_head not in self.board:
-				self.snake.append(last)
+				self.snake.append(tail)
 				self.alive = False
 			else:
 				self.snake.insert(0, new_head)
 				if new_head == self.apple:
-					self.snake.append(last)
+					self.snake.append(tail)
 					self.apple = random.choice(list(set(self.board) - set(self.snake)))
 
 	def print_board(self):
