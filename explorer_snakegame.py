@@ -1,6 +1,7 @@
 from snake_game import *
+from main import X, Y
 from PIL import Image
-import os
+import os, pyautogui
 
 BACKGROUND = (127, 127, 127)
 SNAKE = (0, 255, 0)
@@ -24,12 +25,13 @@ class ExplorerSnakeGame(SnakeGame):
 			file.save(self.folder + "\\" + str((i * self.columns + j)) + ".png")
 
 	def finish_update(self, new_head, tail):
+			pyautogui.click(X, Y)
 			if new_head in self.snake or new_head not in self.board:
 				self.snake.append(tail)
 				self.alive = False
-				desd_snake = Image.new("RGB", SIZE, DEATH_SNAKE)
+				dead_snake = Image.new("RGB", SIZE, DEATH_SNAKE)
 				for i, j in self.snake:
-					desd_snake.save(self.folder + "\\" + str((i * self.columns + j)) + ".png")
+					dead_snake.save(self.folder + "\\" + str((i * self.columns + j)) + ".png")
 			else:
 				self.snake.insert(0, new_head)
 				file_snake = Image.new("RGB", SIZE, SNAKE)
